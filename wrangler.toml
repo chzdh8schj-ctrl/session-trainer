@@ -1,0 +1,8 @@
+name = "session-trainer"
+main = "index.js"
+compatibility_date = "2026-11-23"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "session-trainer"
+database_id = "ВСТАВЬТЕ_ID_БАЗЫ_D1"
