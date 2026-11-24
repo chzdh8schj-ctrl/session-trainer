@@ -1,0 +1,33 @@
+[Unit]
+Description=Session Trainer (FastAPI + uvicorn, 127.0.0.1:8010)
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# Пользователь и группа, от которых работает приложение (создать заранее, см. DEPLOY.md).
+User=CHANGE_ME_USER
+Group=CHANGE_ME_USER
+
+# Код: каталог backend проекта.
+WorkingDirectory=/opt/session-trainer/backend
+
+# Секреты и настройки (SITE_PASSWORD, SESSION_SECRET, DEEPSEEK_API_KEY, APP_DB_PATH, ...).
+EnvironmentFile=/opt/session-trainer/backend/.env
+
+# uvicorn из venv, созданного uv. Слушаем только localhost — наружу через nginx.
+ExecStart=/opt/session-trainer/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8010
+
+Restart=always
+RestartSec=3
+
+# Ограничения: системе только чтение, писать можно в каталог приложения (SQLite + frontend/dist).
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/opt/session-trainer/backend
+
+[Install]
+WantedBy=multi-user.target

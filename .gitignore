@@ -1,3 +1,15 @@
 node_modules/
 .dev.vars
 .wrangler/
+/package-lock.json
+
+# приложение
+backend/.env
+backend/.venv/
+backend/data/
+frontend/dist/
+frontend/node_modules/
+backups/
+__pycache__/
+.pytest_cache/
+*.pyc
